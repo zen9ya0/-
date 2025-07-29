@@ -8,9 +8,5 @@
 - **Forensic-Report-Template.md**：鑑識報告範例，提供調查結論格式。
 - **tools-commands.md**：常用取證與分析工具命令集。
 
-## 如何使用
-1. 將 `docs/Incident-Response-SOP.md` 上傳至你的內部 Wiki 或知識庫。
-2. 在 GitHub Pages 開啟此 Repository，即可線上檢視 SOP。
-
 ## 授權
 本專案可依據你的組織政策選擇授權方式（MIT、Apache 2.0 或內部專用）。

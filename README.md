@@ -9,6 +9,32 @@
 - **tools-commands.md**：常用取證與分析工具命令集。
 
 ---
+# 資安事件調查與數位鑑識標準作業程序 (SOP)
+
+## 目錄
+1. [目的與範疇](#目的與範疇)
+2. [流程總覽](#流程總覽)
+3. [詳細流程](#詳細流程)
+   - [準備 (Preparation)](#準備-preparation)
+   - [偵測與識別 (Detection & Identification)](#偵測與識別-detection--identification)
+   - [遏止 (Containment)](#遏止-containment)
+   - [根除 (Eradication)](#根除-eradication)
+   - [復原 (Recovery)](#復原-recovery)
+   - [鑑識分析 (Digital Forensics)](#鑑識分析-digital-forensics)
+   - [事後檢討 (Lessons Learned)](#事後檢討-lessons-learned)
+4. [RACI 權責矩陣](#raci-權責矩陣)
+5. [事件時間軸模板](#事件時間軸模板)
+6. [常用工具與命令範例](#常用工具與命令範例)
+
+---
+
+## 目的與範疇
+本 SOP 用於指導資安事件處理與數位鑑識，確保：
+- 快速應對與遏止資安事件。
+- 完整保存並分析證據，確保其法律效力。
+- 從事件中學習並持續改善防禦能力。
+
+---
 
 ## 詳細流程
 

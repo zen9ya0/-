@@ -8,6 +8,7 @@
 3. [詳細流程](#詳細流程)
    - [準備 (Preparation)](#準備-preparation)
    - [偵測與識別 (Detection & Identification)](#偵測與識別-detection--identification)
+      - [主動威脅狩獵（Threat Hunting）](#主動威脅狩獵-threat-hunting)
    - [遏止 (Containment)](#遏止-containment)
    - [根除 (Eradication)](#根除-eradication)
    - [復原 (Recovery)](#復原-recovery)
@@ -50,6 +51,41 @@
   - 確認事件範圍與類型。
   - 建立初步事件時間軸並保存快照。
 
+---
+
+#### 主動威脅狩獵（Threat Hunting）
+在沒有 SIEM、EDR、集中日誌的極端情況下，需透過 **網路流量為核心的主動偵測** 方式進行威脅狩獵。
+
+**方法論：**
+1. **建立觀測點 (Visibility)**  
+   - 使用核心交換器或防火牆的 Port Mirroring，將流量鏡像到分析伺服器。  
+   - 工具：`tcpdump + Zeek + Suricata`。
+
+2. **縮小範圍 (Scoping)**  
+   - 先分析出站流量的異常行為（長連線、可疑 DNS 查詢、非標準端口）。  
+   - 透過 Zeek 的 `conn.log`、`dns.log` 找出可疑內部 IP。
+
+3. **主機層檢查**  
+   - 鎖定可疑 IP 後，批量收集 `netstat`、`tasklist` 或 `ps aux`。
+   - 尋找可疑程序（非系統路徑、帶有加密或可疑命令列參數）。
+
+4. **取證與保存**  
+   - 對鎖定主機進行記憶體抓取與磁碟影像 (`dd`, `winpmem`)。
+   - 計算 SHA256/MD5 哈希值以確保完整性。
+
+5. **快速 IOC 獵殺**  
+   - 利用 YARA 扫描常見惡意程式路徑：
+     ```bash
+     yara -r rules.yar /home/
+     yara -r rules.yar C:\Users\
+     ```
+
+6. **時間軸重建**  
+   - 沒有日誌時，利用 MFT 和記憶體取證：
+     ```bash
+     log2timeline.py evidence.plaso /mnt/evidence/disk.img
+     psort.py -o L2tcsv evidence.plaso > timeline.csv
+     ```
 ---
 
 ### 遏止 (Containment)

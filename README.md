@@ -8,7 +8,7 @@
 3. [詳細流程](#詳細流程)
    - [準備 (Preparation)](#準備-preparation)
    - [偵測與識別 (Detection & Identification)](#偵測與識別-detection--identification)
-      - [主動威脅狩獵（Threat Hunting）](#主動威脅狩獵-threat-hunting)
+     - [主動威脅狩獵（Threat Hunting）](#主動威脅狩獵-threat-hunting)
    - [遏止 (Containment)](#遏止-containment)
    - [根除 (Eradication)](#根除-eradication)
    - [復原 (Recovery)](#復原-recovery)
@@ -17,6 +17,7 @@
 4. [RACI 權責矩陣](#raci-權責矩陣)
 5. [事件時間軸模板](#事件時間軸模板)
 6. [常用工具與命令範例](#常用工具與命令範例)
+
 
 ---
 
@@ -86,6 +87,21 @@
      log2timeline.py evidence.plaso /mnt/evidence/disk.img
      psort.py -o L2tcsv evidence.plaso > timeline.csv
      ```
+---
+
+#### 威脅狩獵流程圖
+```mermaid
+flowchart TD
+    A[網路流量收集 (tcpdump)] --> B[Zeek 解析 (conn.log, dns.log)]
+    B --> C{異常連線特徵分析}
+    C -->|可疑外部IP| D[反查內網IP]
+    D --> E[批量主機檢查 (netstat, ps, tasklist)]
+    E --> F{找到可疑程序?}
+    F -->|是| G[取證 (記憶體, 磁碟影像)]
+    F -->|否| H[持續監控]
+    G --> I[YARA / IOC 扫描]
+    I --> J[時間軸重建 & 報告]
+
 ---
 
 ### 遏止 (Containment)

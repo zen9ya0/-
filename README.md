@@ -181,12 +181,12 @@
 
 ```mermaid
 flowchart TD
-    A[網路流量收集 tcpdump] --> B[Zeek 解析]
+    A[網路流量收集] --> B[Zeek 解析]
     B --> C{異常連線特徵分析}
     C -->|可疑外部IP| D[反查內網IP]
-    D --> E[批量主機檢查 (netstat, ps, tasklist)]
+    D --> E[批量主機檢查]
     E --> F{找到可疑程序?}
-    F -->|是| G[取證 (記憶體, 磁碟影像)]
+    F -->|是| G[取證]
     F -->|否| H[持續監控]
     G --> I[YARA / IOC 扫描]
     I --> J[時間軸重建 & 報告]

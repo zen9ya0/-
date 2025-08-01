@@ -176,6 +176,19 @@
 - **tools-commands.md**：常用取證與分析工具命令集。
 
 ---
+#### 威脅狩獵流程圖
+
+```mermaid
+flowchart TD
+    A[網路流量收集 (tcpdump)] --> B[Zeek 解析 (conn.log, dns.log)]
+    B --> C{異常連線特徵分析}
+    C -->|可疑外部IP| D[反查內網IP]
+    D --> E[批量主機檢查 (netstat, ps, tasklist)]
+    E --> F{找到可疑程序?}
+    F -->|是| G[取證 (記憶體, 磁碟影像)]
+    F -->|否| H[持續監控]
+    G --> I[YARA / IOC 扫描]
+    I --> J[時間軸重建 & 報告]
 
 ## 授權
 本專案可依據你的組織政策選擇授權方式（MIT、Apache 2.0 或內部專用）。

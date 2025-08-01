@@ -181,7 +181,7 @@
 
 ```mermaid
 flowchart TD
-    A[網路流量收集 (tcpdump)] --> B[Zeek 解析 (conn.log, dns.log)]
+    A[網路流量收集 tcpdump] --> B[Zeek 解析]
     B --> C{異常連線特徵分析}
     C -->|可疑外部IP| D[反查內網IP]
     D --> E[批量主機檢查 (netstat, ps, tasklist)]
